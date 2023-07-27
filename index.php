@@ -1,5 +1,15 @@
+<?php
+include("conexao.php");
+if(isset($_POST['$bt_nome'])){
+    $nome = $_POST['bt_nome'];
+    $senha = $_POST['bt_senha'];
+    $mysqli->query("INSERT INTO tabela_login (login, senha)
+    values ('$nome', '$senha')")
+    or die($mysqli->error);
+}
+?>
 <!DOCTYPE html>
-    <html lang="en">
+    <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,13 +22,12 @@
             <h1>Para Fazer - Revisão - Cadastrar</h1>
             <form>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Endereço de email</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">Não vamos compartilhar seu email para outros.</div>
+                    <label for="exampleInputEmail1" class="form-label">Login</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="bt_nome" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Senha</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="bt_senha">
                 </div> 
                 <button type="submit" class="btn btn-primary">Enviar</button>
                 <button type="reset" class="btn btn-danger">Redefinir</button>
