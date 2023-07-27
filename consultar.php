@@ -14,6 +14,31 @@ $quantidade_login = $consulta->num_rows; // Retornar quantidade de login
         <title>Document</title>
     </head>
     <body>
-        
+        <div class="container">
+        <h1>Lista de Cadastros</h1>
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Login</th>
+                <th>Senha</th>
+            </tr>
+
+                <?php
+                    while ($pedidos = $retorno_consulta -> fetch_assoc()){
+                ?>
+                <tr>
+                    <td><?php echo $logins['id_login']; ?></td>
+                    <td><?php echo $pedidos['login']; ?></td>
+                    <td><?php echo $pedidos['senha']; ?></td>
+                </tr>
+                <?php
+                    }
+                
+                ?>
+            
+        </table>
+        <a class="btn btn-warning" href="index.php">Voltar</a>
+
+        </div>
     </body>
 </html>
