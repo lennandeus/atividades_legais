@@ -1,41 +1,15 @@
 <?php
- 
+    include("conexao.php");
+    if (isset($_POST['bt_nome'])) {
+        $nome = $_POST['bt_nome'];
+        //$senha = $_POST['bt_senha'];
 
- include("conexao.php");
- session_start(); // Inicie a sessão aqui no topo do seu script
- 
+        $senha = password_hash ($_POST['bt_senha'], PASSWORD_DEFAULT);
 
- if (isset($_POST['bt_login'])) {
-     $login = $_POST['bt_login'];
-     $senha = $_POST['bt_senha'];
- 
-     // Usando prepared statements para evitar SQL Injection
-     $stmt = $mysqli->prepare("SELECT * FROM tabela_login WHERE login = ? LIMIT 1");
-     $stmt->bind_param("s", $login);
-     $stmt->execute();
-     $result = $stmt->get_result();
-     $usuario = $result->fetch_assoc();
-    
-     
-     // Verificar se o usuário existe
-      if (!$usuario) {
-         echo "<script>alert('login ou senha incorreto!!');</script>";
-         header("Location: index.php");
-         exit();
-     }
-
-     
- 
-     // Verificar a senha
-     if (password_verify($senha, $usuario['senha'])) {
-         $_SESSION['login'] = $usuario['id_login'];
-         //var_dump( $usuario);
-         header("Location: consultar.php");
-        exit();
-     } else {
-         echo "Usuário não autenticado";
-     }
- }
+        $mysqli->query("INSERT INTO tabela_login (login, senha)
+        values ('$nome', '$senha')")
+        or die($mysqli->error);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -60,9 +34,9 @@
             <div class="col-4">
                 <form action="" method="post">
                     <div class="mb-3">
-                        <h1 class="text-center"> Fazer Login</h1>
+                        <h1 class="text-center"> Para Fazer - Revisão - Cadastrar</h1>
                         <label class="form-label" for="">Login</label>
-                        <input class="form-control" type="text" name="bt_login">
+                        <input class="form-control" type="text" name="bt_nome">
                     </div>
 
                     <div class="mb-3">
@@ -70,7 +44,7 @@
                         <input class="form-control" type="text" name="bt_senha">
                     </div>
 
-                    <input class="btn btn-primary" type="submit" value="Entrar">
+                    <input class="btn btn-primary" type="submit" value="Cadastrar">
                     <input class="btn btn-danger" type="reset">
                 </form>
             </div>
